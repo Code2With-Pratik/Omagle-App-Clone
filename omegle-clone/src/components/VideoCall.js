@@ -37,7 +37,6 @@ export default function VideoCall() {
       return;
     }
 
-
     localStreamRef.current = stream;
 
     if (localVideoRef.current) {
@@ -51,8 +50,6 @@ export default function VideoCall() {
   .catch((err) => {
     console.error("Error accessing media devices:", err);
   });
-
-
 
     pc.ontrack = (event) => {
       const remoteStream = event.streams[0];
