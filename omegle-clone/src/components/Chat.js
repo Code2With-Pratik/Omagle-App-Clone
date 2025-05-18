@@ -40,6 +40,8 @@ function Chat({ remoteSocketId }) {
     }
   };
 
+  // chat UI section 
+
   return (
     <div className="w-[350px] h-full bg-[#0a0a0b] p-4 text-white flex flex-col justify-between border-l border-gray-700">
       {/* Chat messages */}
