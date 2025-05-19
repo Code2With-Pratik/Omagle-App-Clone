@@ -7,7 +7,7 @@ export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen relative overflow-hidden">
+    <div className="flex h-screen w-screen transition-all duration-300">
       <VideoCall toggleChat={() => setIsChatOpen((prev) => !prev)} />
       <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
