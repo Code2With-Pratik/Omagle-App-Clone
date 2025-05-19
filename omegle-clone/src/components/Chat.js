@@ -91,8 +91,7 @@ function Chat({ isOpen, onClose }) {
         />
         <button
           onClick={handleSendMessage}
-          className="bg-red-600 px-4 rounded-r-md hover:bg-red-500"
-        >
+          className="bg-red-600 px-4 rounded-r-md hover:bg-red-500">
           Send
         </button>
       </div>
