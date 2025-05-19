@@ -44,7 +44,7 @@ function Chat({ isOpen, onClose }) {
         fixed z-20 bg-[#0a0a0b] text-white border-gray-700 flex flex-col justify-between
         transition-transform duration-300 ease-in-out
         ${isOpen ? 'translate-x-0 translate-y-0' : 'translate-x-full md:translate-x-full translate-y-full md:translate-y-0'}
-        w-full h-[60%] bottom-0 md:w-[350px] md:h-full md:right-0 md:top-0 md:border-l
+        w-full h-[40%] bottom-0 md:w-[350px] md:h-full md:right-0 md:top-0 md:border-l
       `}
     >
       {/* Header with Close Button on Mobile */}
