@@ -1,8 +1,7 @@
-// Chat.js
 import React, { useState, useEffect, useRef } from 'react';
 import socket from '../socket';
 
-function Chat({ isOpen }) {
+function Chat({ isOpen, onClose }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isStrangerTyping, setIsStrangerTyping] = useState(false);
@@ -48,6 +47,17 @@ function Chat({ isOpen }) {
         w-full h-[60%] bottom-0 md:w-[350px] md:h-full md:right-0 md:top-0 md:border-l
       `}
     >
+      {/* Header with Close Button on Mobile */}
+      <div className="flex justify-between items-center p-3 border-b border-gray-700">
+        <span className="font-semibold text-white">Chat</span>
+        <button
+          onClick={onClose}
+          className="md:hidden text-white text-lg p-1 hover:text-red-500"
+        >
+          ✕
+        </button>
+      </div>
+
       {/* Messages */}
       <div className="flex-1 overflow-y-auto space-y-2 p-4 pr-2">
         {messages.map((msg, index) => (
@@ -74,7 +84,7 @@ function Chat({ isOpen }) {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onInput={() => socket.emit("typing")}
+          onInput={() => socket.emit('typing')}
           onKeyDown={handleKeyDown}
           placeholder="Type a message..."
           className="flex-1 p-2 rounded-l-md text-black outline-none"
