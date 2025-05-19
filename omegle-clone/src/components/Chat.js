@@ -52,9 +52,9 @@ function Chat({ isOpen, onClose }) {
         <span className="font-semibold text-white">Chat</span>
         <button
           onClick={onClose}
-          className="md:hidden text-white text-lg p-1 hover:text-red-500"
+          className="text-white text-lg p-1 hover:text-red-500"
         >
-          ✕
+          ✕   
         </button>
       </div>
 
