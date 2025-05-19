@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex flex-col md:flex-row h-screen relative overflow-hidden">
       <VideoCall toggleChat={() => setIsChatOpen((prev) => !prev)} />
-      <Chat isOpen={isChatOpen} />
+      <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }

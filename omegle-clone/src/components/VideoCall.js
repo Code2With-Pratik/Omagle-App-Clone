@@ -23,6 +23,7 @@ export default function VideoCall({ toggleChat }) {
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isCameraOff, setIsCameraOff] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isRemoteVideoAvailable, setIsRemoteVideoAvailable] = useState(false);
 
   useEffect(() => {
