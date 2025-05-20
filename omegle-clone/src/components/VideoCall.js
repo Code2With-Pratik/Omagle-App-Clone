@@ -157,7 +157,9 @@ export default function VideoCall({ toggleChat }) {
           <img src={defaultAvatar} alt="Your Avatar" className="w-full h-full object-contain rounded-full opacity-80" />
         ) : (
           <video ref={localVideoRef} autoPlay muted playsInline className="w-full h-full object-cover" />
+          
         )}
+        
       </div>
 
       {/* Controls */}
