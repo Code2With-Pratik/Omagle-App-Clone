@@ -21,9 +21,9 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#0f0f0f] to-[#1f1f1f] text-white px-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#5459fc] to-[#1f1f1f] text-white px-4">
       <div className="text-center mb-10">
-        <User className="mx-auto h-16 w-16 text-blue-500" />
+        <User className="mx-auto h-16 w-16 text-white-500" />
         <h1 className="text-4xl font-bold mt-4">Welcome to Omegle Clone</h1>
         <p className="mt-2 text-gray-400">Chat with strangers or join a room</p>
       </div>
@@ -42,7 +42,7 @@ export default function LandingPage() {
           </Button>
         </div>
 
-        <div className="text-center text-gray-500 uppercase text-xs">OR</div>
+        <div className="text-center text-gray-200 uppercase text-xs">OR</div>
 
         <div>
           <h2 className="text-xl font-semibold mb-2">🔗 Join a Room</h2>
