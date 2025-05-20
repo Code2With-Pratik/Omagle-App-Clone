@@ -46,6 +46,7 @@ export default function VideoCall({ toggleChat }) {
           pc.addTrack(track, stream);
         });
       })
+      
       .catch((err) => console.error("Media access error:", err));
 
     pc.ontrack = (event) => {
