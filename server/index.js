@@ -9,32 +9,40 @@ app.use(cors());
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", // adjust for production
     methods: ["GET", "POST"],
   },
 });
 
-const waitingQueue = [];
+const waiting = [];
+const rooms = new Map(); // roomId => [socket.id]
 
 io.on("connection", (socket) => {
-  console.log("🔌 User connected:", socket.id);
+  console.log("User connected:", socket.id);
 
-  socket.on("join-stranger", () => {
-    if (waitingQueue.length > 0) {
-      const peerSocket = waitingQueue.pop();
-      socket.partner = peerSocket.id;
-      peerSocket.partner = socket.id;
+  socket.on("join-stranger", ({ name }) => {
+    socket.data.name = name;
 
-      socket.emit("match-found", { id: peerSocket.id });
-      peerSocket.emit("match-found", { id: socket.id });
+    if (waiting.length > 0) {
+      const peer = waiting.pop();
+      socket.emit("match-found", { id: peer.id, name: peer.data.name });
+      peer.emit("match-found", { id: socket.id, name });
     } else {
-      waitingQueue.push(socket);
+      waiting.push(socket);
     }
   });
 
-  socket.on("join-room", (roomId) => {
+  socket.on("join-room", ({ roomId, name }) => {
+    socket.data.name = name;
     socket.join(roomId);
-    socket.to(roomId).emit("peer-joined", socket.id);
+
+    if (!rooms.has(roomId)) {
+      rooms.set(roomId, []);
+    }
+    rooms.get(roomId).push(socket.id);
+
+    const otherUsers = rooms.get(roomId).filter((id) => id !== socket.id);
+    socket.emit("all-users", otherUsers);
   });
 
   socket.on("send-offer", ({ offer, to }) => {
@@ -51,7 +59,6 @@ io.on("connection", (socket) => {
 
   socket.on("leave-call", ({ to }) => {
     io.to(to).emit("user-left");
-    socket.leaveAll();
   });
 
   socket.on("typing", ({ to }) => {
@@ -63,16 +70,20 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    const index = waitingQueue.findIndex((s) => s.id === socket.id);
-    if (index !== -1) waitingQueue.splice(index, 1);
-    console.log("❌ User disconnected:", socket.id);
+    const index = waiting.findIndex((s) => s.id === socket.id);
+    if (index !== -1) waiting.splice(index, 1);
 
-    if (socket.partner) {
-      io.to(socket.partner).emit("user-left");
-    }
+    rooms.forEach((users, roomId) => {
+      rooms.set(roomId, users.filter((id) => id !== socket.id));
+      if (rooms.get(roomId).length === 0) {
+        rooms.delete(roomId);
+      }
+    });
+
+    console.log("User disconnected:", socket.id);
   });
 });
 
 server.listen(5000, () => {
-  console.log("🚀 Server running on http://localhost:5000");
+  console.log("Server running on http://localhost:5000");
 });
