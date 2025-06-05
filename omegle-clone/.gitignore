@@ -1,4 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+there all files are not forworded to the github server
 
 # dependencies
 /node_modules
