@@ -9,7 +9,6 @@ app.use(cors());
 
 // server created using get and post methods
 
-
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
